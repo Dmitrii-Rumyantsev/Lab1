@@ -1,4 +1,4 @@
-package ru.mirea.task19;
+package ru.mirea.task19.task1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

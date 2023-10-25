@@ -1,6 +1,4 @@
-package ru.mirea.task19;
-
-import java.util.Arrays;
+package ru.mirea.task19.task1;
 
 public class TestList {
     public static void main(String[] args) {
