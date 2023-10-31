@@ -91,11 +91,6 @@ public class Customer implements Order {
     }
 
     @Override
-    public MenuItem[] sortedItemsByCostDesc() {
-        return new MenuItem[0];
-    }
-
-    @Override
     public int costTotal() {
         return 0;
     }

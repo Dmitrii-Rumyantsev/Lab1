@@ -13,21 +13,53 @@ final class Drink extends MenuItem implements AlcohoTable {
         return type;
     }
     Drink(String name,String description){
-        this.coast = 0;
-        this.name = name;
-        this.description = description;
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("Название блюда должно быть ну пустым");
+        }
+        else if (description.isEmpty()){
+            throw new IllegalArgumentException("Описание должно быть ну пустым");
+
+        }else {
+            this.coast = 0;
+            this.name = name;
+            this.description = description;
+        }
     }
     Drink(int coast,String name,String description){
-        this.coast = coast;
-        this.name = name;
-        this.description = description;
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("Название блюда должно быть ну пустым");
+        }
+        else if (description.isEmpty()){
+            throw new IllegalArgumentException("Описание должно быть ну пустым");
+
+        }
+        else if ( coast < 0){
+            throw new IllegalArgumentException("Стоимость должны быть больше 0");
+
+        }else {
+            this.coast = coast;
+            this.name = name;
+            this.description = description;
+        }
     }
     Drink(int coast,String name,String description, int alcoholVol,DrinkTypeEnum type){
-        this.coast = coast;
-        this.name = name;
-        this.description = description;
-        this.alcoholVol = alcoholVol;
-        this.type = type;
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("Название блюда должно быть ну пустым");
+        }
+        else if (description.isEmpty()){
+            throw new IllegalArgumentException("Описание должно быть ну пустым");
+
+        }
+        else if ( coast < 0){
+            throw new IllegalArgumentException("Стоимость должны быть больше 0");
+
+        }else {
+            this.coast = coast;
+            this.name = name;
+            this.description = description;
+            this.alcoholVol = alcoholVol;
+            this.type = type;
+        }
     }
 
     @Override
@@ -38,5 +70,20 @@ final class Drink extends MenuItem implements AlcohoTable {
     @Override
     public double getAlcoholVol() {
         return 0;
+    }
+
+    @Override
+    public int getCost() {
+        return coast;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 }

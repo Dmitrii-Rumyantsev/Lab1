@@ -1,36 +1,48 @@
 package ru.mirea.task24;
 
+import java.util.Map;
+
 public class TableOrder implements Order{
     private int size;
     private MenuItem[] items;
+
     @Override
-    public boolean add(Order order) {
-        return false;
+    public boolean add(MenuItem item) {
+        orderManager.put(item.getName(),item);
+        return true;
     }
 
     @Override
     public String[] itemsNames() {
-        return new String[0];
+        return orderManager.keySet().stream().filter(key -> orderManager.get(key) != null).toArray(String[]::new);
     }
 
     @Override
     public int itemsQuantity() {
-        return 0;
+        return orderManager.keySet().size();
     }
 
     @Override
     public int itemsQuantity(String itemName) {
-        return 0;
+        return (int) orderManager.keySet().stream().filter(key -> key.equals(itemName)).count();
     }
 
     @Override
     public int itemsQuantity(MenuItem itemName) {
-        return 0;
+        int count = 0;
+        for (Map.Entry<String, Order> entry : orderManager.entrySet()) {
+            Order order = entry.getValue();
+            if (order.equals(itemName)) {
+                count++;
+            }
+        }
+        return count;
     }
+
 
     @Override
     public Order[] getOrders() {
-        return new Order[0];
+        return orderManager.values().toArray(new Order[0]);
     }
 
     @Override
@@ -40,39 +52,43 @@ public class TableOrder implements Order{
 
     @Override
     public int ordersQuantity() {
-        return 0;
+        return orderManager.size();
     }
 
     @Override
     public MenuItem[] getItems() {
-        return new MenuItem[0];
+        return orderManager.values().toArray(new MenuItem[0]);
     }
 
     @Override
     public boolean remove(MenuItem item) {
-        return false;
+        return orderManager.remove(item.getName(),item);
     }
 
     @Override
     public int removeAll(String itemName) {
-        return 0;
+        int initialSize = orderManager.size(); // Запоминаем начальный размер HashMap
+        orderManager.entrySet().removeIf(entry -> entry.getKey().equals(itemName));
+        int countDel = initialSize - orderManager.size(); // Вычисляем количество удаленных элементов
+        return countDel;
     }
+
 
     @Override
     public int removeAll(MenuItem item) {
-        return 0;
+        int count = 0;
+        for(int i = 0 ; i < orderManager.size();i++){
+            if(orderManager.remove(item.getName(),item)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean remove(String itemName) {
-        return false;
+        return orderManager.remove(itemName) != null;
     }
-
-    @Override
-    public MenuItem[] sortedItemsByCostDesc() {
-        return new MenuItem[0];
-    }
-
     @Override
     public int costTotal() {
         return 0;
@@ -87,4 +103,5 @@ public class TableOrder implements Order{
     public Customer setCustomer(Customer customer) {
         return null;
     }
+
 }

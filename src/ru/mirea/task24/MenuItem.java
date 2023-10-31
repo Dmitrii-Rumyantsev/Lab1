@@ -1,24 +1,22 @@
 package ru.mirea.task24;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MenuItem implements Order{
     private int cost;
     private String name;
     private String description;
 
-    public int getCost() {
+    public  int getCost(){
         return cost;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
 
@@ -78,7 +76,7 @@ public class MenuItem implements Order{
 
     @Override
     public boolean remove(MenuItem item) {
-        return orderManager.remove(item.name,item);
+        return orderManager.remove(item.getName(),item);
     }
 
     @Override
@@ -105,14 +103,6 @@ public class MenuItem implements Order{
     public boolean remove(String itemName) {
         return orderManager.remove(itemName) != null;
     }
-
-    @Override
-    public MenuItem[] sortedItemsByCostDesc() {
-        return orderManager.values().stream()
-                .sorted(Comparator.comparingInt(MenuItem::getCost))
-                .toArray(MenuItem[]::new);
-    }
-
     @Override
     public int costTotal() {
         return 0;
@@ -126,5 +116,12 @@ public class MenuItem implements Order{
     @Override
     public Customer setCustomer(Customer customer) {
         return null;
+    }
+    @Override
+    public String toString() {
+        return "cost = " + cost + ", name = " + name + ", description = " + description;
+    }
+    public String prints(){
+        return orderManager.toString();
     }
 }
